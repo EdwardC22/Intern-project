@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css"
+    />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <style>
+      #week-calendarid,
+      #daily-calendarID {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      @media (min-width: 769px) {
+  
+
+        .fc-event {/*event style*/
+            background-color: #4ad09b;
+            color: white;
+            border: 1px solid #4ad09b; 
+        }
+
+        .fc-event:hover {/*event style*/
+            background-color: #5c865c;
+            color: white;
+            border: 1px solid #5c865c; 
+        }
+        .fc .fc-toolbar.fc-header-toolbar
+        {
+          margin-top: 20px;
+          margin-left:10px;
+          margin-right: 10px
+        }
+        .fc .fc-toolbar-title{
+         
+          color:#4ad09b
+        }
+     
+
+        .fc-time-grid .fc-slats td[data-time] .fc-time {
+            color: #4ad09b;
+        }
+
+        .fc-daygrid-day { /*month calendar style*/
+              background-color: #f8f9fa; 
+          }
+
+        .fc .fc-col-header-cell-cushion {
+          display: inline-block;
+          padding: 2px 4px;
+          color: #4ad09b
+        }
+
+        .fc-daygrid-day-number {
+                color: #4ad09b; 
+          }
+          .fc-daygrid-weekday {
+            color: #4ad09b;
+          }
+
+        body {
+          background-color: white;
+          font-family: "Times New Roman", serif;
+        }
+
+        .btn-primary,
+        .form-control,
+        .form-group label {
+          border-radius: 5px;
+          border: 1px solid #96c8a2;
+          background-color: #e6f2df;
+          color: #5c865c;
+        }
+
+        .btn-primary:hover {
+          background-color: #cde4c3;
+          color: #3b543b;
+        }
+
+
+
+        .modal-content {
+          background-color: #f8faf5;
+          border-color: #b4d3b2;
+        }
+
+        .close {
+          color: #aab3a1;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: #687568;
+        }
+
+        .calendar-nav button {
+          background-color: #e6f2df;
+          color: #5c865c;
+        }
+
+        .calendar-nav button:hover {
+          background-color: #cde4c3;
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+        }
+
+        .row {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        #Carer_id,
+        #Customer_id,
+        #Calendar_id {
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: #333;
+          padding: 10px 0;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          display: block;
+          background-color: transparent;
+          border-radius: 0;
+          color: #4ad09b;
+          border: none;
+        }
+
+        #carer-dropdown,
+        #customer-dropdown,
+        #calendar-dropdown {
+          margin-top: 15px;
+          margin-left: 5px;
+          width: 120px;
+          height: 50%;
+          box-sizing: border-box;
+          border: 2px solid #4ad09b;
+          border-radius: 5px;
+          padding: 5px;
+          background-color: #fff;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+          color: #333;
+          font-size: 1rem;
+        }
+
+        #carer-dropdown:hover,
+        #customer-dropdown:hover,
+        #calendar-dropdown:hover {
+          border-color: #369f8c;
+        }
+
+        .Filtercontainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background-color: white;
+          border-radius: 25px;
+          height: 100%;
+          width: 100%;
+          margin: 0 auto;
+          position: relative;
+          box-shadow: 0 4px 8px rgba(74, 208, 155, 0.5);
+          padding: 20px;
+        }
+
+
+        .color-0::before {
+          color: red;
+        }
+        .color-1::before {
+          color: blue;
+        }
+        .color-2::before {
+          color: green;
+        }
+        .color-3::before {
+          color: orange;
+        }
+        .color-4::before {
+          color: purple;
+        }
+        .color-5::before {
+          color: yellow;
+        }
+
+        .vertical-center {
+          padding: 10vh 0;
+          display: flex;
+          align-items: center;
+        }
+
+        body {
+          font-family: "Trebuchet MS", sans-serif;
+        }
+
+        .calendar-nav {
+          padding: 10px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        .calendar-nav button {
+          background-color: white;
+          color: #4ad09b;
+          border: 2px solid #4ad09b;
+          border-radius: 15px;
+          padding: 10px 20px;
+          margin: 0 10px;
+        }
+
+        .calendar-nav button:hover {
+          background-color: #a8dbd9;
+          color: white;
+        }
+
+        #monthYear {
+          font-weight: bold;
+        }
+        .mark-text {
+          font-weight: bold;
+          color: red;
+        }
+
+        .today {
+          background-color: blue;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+        }
+        .calendar-container {
+          margin-top: 0px;
+        }
+
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgb(77, 174, 116);
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        #modalButtons {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          padding-top: 20px;
+        }
+
+        .modal-content {
+          background-color: #fefefe;
+          margin: 10% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 30%;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .modal-content h2 {
+          color: #333333;
+          margin-bottom: 15px;
+        }
+
+        .modal-content p {
+          color: #555555;
+          line-height: 1.6;
+        }
+
+        .modal-content .btn {
+          border-radius: 20px;
+          padding: 10px 15px;
+          margin-top: 15px;
+        }
+
+        .modal-content .close {
+          color: #aaaaaa;
+          text-shadow: none;
+          opacity: 0.5;
+        }
+
+        .modal-content .close:hover {
+          opacity: 1;
+        }
+
+        .close {
+          position: absolute;
+          right: 40px;
+          top: 10px;
+
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        #Start_End_time {
+          margin-top: 20px;
+        }
+
+        .modal-content .btn {
+          border: none;
+          padding: 10px 20px;
+          margin: 10px 5px 0;
+          border-radius: 5px;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        #editButton {
+          border: none;
+          width: 60px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: #4caf50;
+          color: white;
+        }
+
+        #editButton:hover {
+          background-color: #369f8c;
+        }
+
+        #deleteButton {
+          border: none;
+          width: 60px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: #f44336;
+          color: white;
+        }
+
+        #deleteButton:hover {
+          background-color: #da190b;
+        }
+        #updateButton {
+          border: none;
+          width: 200px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: #4caf50;
+          color: white;
+        }
+        #updateButton:hover {
+          background-color: #369f8c;
+        }
+
+        .edit-schedule-popup {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .popup-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #fff;
+          margin: 10% auto;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          width: 30%;
+          min-width: 300px;
+        }
+
+        .close-popup {
+          align-self: flex-end;
+          color: #333;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close-popup:hover,
+        .close-popup:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        label {
+          display: block;
+          margin: 10px 0 5px;
+          color: #333;
+          font-size: 14px;
+        }
+
+        input[type="datetime-local"],
+        input[type="text"],
+        input[type="search"],
+        select {
+          width: 100%;
+          padding: 8px;
+          margin: 5px 0 20px;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          background-color: #4caf50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #45a049;
+        }
+
+        @media screen and (max-width: 600px) {
+          .popup-content {
+            width: 80%;
+          }
+        }
+
+        #Addexpense {
+          width: 100%;
+          height: 100px;
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+          resize: vertical;
+        }
+
+        .week-calendar-container {
+          overflow-x: hidden;
+        }
+
+        .week-calendar-nav {
+          margin-top: 10px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        #week-calendar {
+          border-collapse: collapse;
+          border-spacing: 10px;
+          width: 100%;
+          margin: auto;
+          padding: 0 5%;
+          background-color: #4ad09b;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 15px;
+        }
+
+        #week-calendar th {
+          font-size: 13px;
+          background-color: #4ad09b;
+          color: white;
+          width: 120px;
+          padding: 10px 0;
+          border-radius: 15px;
+          text-align: center;
+        }
+
+        #week-calendar td {
+          background-color: white;
+          border: 1px solid #d3d3d3;
+          padding: 13px;
+          text-align: left;
+          vertical-align: top;
+          width: 11%;
+          height: 60px;
+          min-width: 100px;
+          overflow: auto;
+          word-break: break-word;
+          font-size: 15px;
+
+          box-sizing: border-box;
+        }
+
+        .text-cell {
+          width: 100%;
+          height: 60px;
+          overflow-y: auto;
+        }
+
+        .event-tip {
+          display: block;
+          cursor: pointer;
+          width: auto;
+          height: 30px;
+          margin-bottom: 5px;
+        }
+
+        .week-calendar-button {
+          margin-top: 3px;
+          background-color: white;
+          color: #4ad09b;
+          border: 2px solid #4ad09b;
+          border-radius: 15px;
+          padding: 10px 20px;
+          margin: 0 10px;
+        }
+
+        .week-calendar-button:hover {
+          background-color: #a8dbd9;
+          color: white;
+        }
+
+        .daily-calendar {
+          border-collapse: separate;
+          border-spacing: 10px;
+          width: 90%;
+          margin: auto;
+          padding: 0 5%;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          height: 100%;
+          overflow-y: hidden;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .fc-event {/*event style*/
+            background-color: #4ad09b;
+            color: white;
+            border: 1px solid #4ad09b; 
+        }
+
+        .fc-event:hover {/*event style*/
+            background-color: #5c865c;
+            color: white;
+            border: 1px solid #5c865c; 
+        }
+        .fc .fc-toolbar.fc-header-toolbar
+        {
+          margin-top: 20px;
+          margin-left:10px;
+          margin-right: 10px
+        }
+        .fc .fc-toolbar-title{
+          font-size: 0.7em;
+          color:#4ad09b
+        }
+     
+
+        .fc-time-grid .fc-slats td[data-time] .fc-time {
+            color: #4ad09b;
+        }
+
+        .fc-daygrid-day { /*month calendar style*/
+              background-color: #f8f9fa; 
+          }
+
+        .fc .fc-col-header-cell-cushion {
+          display: inline-block;
+          padding: 2px 4px;
+          color: #4ad09b;
+          font-size: 5px;
+        }
+
+        .fc-daygrid-day-number {
+                color: #4ad09b; 
+          }
+          .fc-daygrid-weekday {
+            color: #4ad09b;
+          }
+
+        
+        body {
+          background-color: white;
+          font-family: "Times New Roman", serif;
+        }
+
+        .btn-primary,
+        .form-control,
+        .form-group label {
+          border-radius: 5px;
+          border: 1px solid #96c8a2;
+          background-color: #e6f2df;
+          color: #5c865c;
+        }
+
+        .btn-primary:hover {
+          background-color: #cde4c3;
+          color: #3b543b;
+        }
+
+        .modal-content {
+          background-color: #f8faf5;
+          border-color: #b4d3b2;
+        }
+
+        .close {
+          color: #aab3a1;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: #687568;
+        }
+
+        .calendar-nav button {
+          background-color: #e6f2df;
+          color: #5c865c;
+        }
+
+        .calendar-nav button:hover {
+          background-color: #cde4c3;
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+        }
+
+        .row {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        #Carer_id,
+        #Customer_id,
+        #Calendar_id {
+          font-size: 0.9rem; /* Retain font size for visibility */
+          font-weight: bold; /* Keep bold for emphasis */
+          color: #333; /* Dark color for readability */
+          padding: 10px 0; /* Vertical padding for spacing, remove horizontal padding */
+          margin-bottom: 10px; /* Adjust bottom margin for better alignment */
+          text-transform: uppercase; /* Keep uppercase for stylistic choice */
+          display: block; /* Keep block for proper layout */
+          background-color: transparent; /* Remove background color */
+          border-radius: 0; /* Remove border radius */
+          color: #4ad09b; /* Use the theme color for the text */
+          border: none;
+        }
+
+        #customer-dropdown,
+        #calendar-dropdown {
+          margin-top: 15px; /* Adjusted margin-top for better spacing */
+          margin-left: 5px;
+          width: 70%; /* Increase width for better usability */
+          height: 50%; /* Increase height for better visibility and click area */
+          box-sizing: border-box;
+          border: 2px solid #4ad09b; /* Add border to match the theme */
+          border-radius: 5px; /* Rounded corners for dropdown */
+          padding: 5px; /* Inner padding for aesthetics */
+          background-color: #fff; /* Background color for dropdown */
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+          color: #333; /* Text color for readability */
+          font-size: 1rem; /* Adjust font size for better readability */
+        }
+
+        #carer-dropdown {
+          margin-top: 15px; /* Adjusted margin-top for better spacing */
+          margin-left: 31px;
+          width: 70%; /* Increase width for better usability */
+          height: 50%; /* Increase height for better visibility and click area */
+          box-sizing: border-box;
+          border: 2px solid #4ad09b; /* Add border to match the theme */
+          border-radius: 5px; /* Rounded corners for dropdown */
+          padding: 5px; /* Inner padding for aesthetics */
+          background-color: #fff; /* Background color for dropdown */
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+          color: #333; /* Text color for readability */
+          font-size: 1rem; /* Adjust font size for better readability */
+        }
+
+        #carer-dropdown:hover,
+        #customer-dropdown:hover,
+        #calendar-dropdown:hover {
+          border-color: #369f8c; /* Slightly darker border on hover for feedback */
+        }
+
+        .Filtercontainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background-color: white;
+          border-radius: 25px;
+          height: 80%;
+          width: 100%;
+          margin: 0 auto;
+          position: relative;
+          box-shadow: 0 4px 8px rgba(74, 208, 155, 0.5); /* Shadow color updated to #4AD09B with opacity */
+          padding: 20px; /* Add padding */
+        }
+
+        .color-0::before {
+          color: red;
+        }
+        .color-1::before {
+          color: blue;
+        }
+        .color-2::before {
+          color: green;
+        }
+        .color-3::before {
+          color: orange;
+        }
+        .color-4::before {
+          color: purple;
+        }
+        .color-5::before {
+          color: yellow;
+        }
+
+        .vertical-center {
+          padding: 10vh 0;
+          display: flex;
+          align-items: center;
+        }
+
+        body {
+          font-family: "Trebuchet MS", sans-serif;
+        }
+
+        .calendar-nav {
+          padding: 10px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        .calendar-nav button {
+          background-color: white;
+          color: #4ad09b;
+          border: 2px solid #4ad09b;
+          border-radius: 15px;
+          padding: 10px 20px;
+          margin: 0 10px;
+        }
+
+        .calendar-nav button:hover {
+          background-color: #a8dbd9;
+          color: white;
+        }
+
+        #monthYear {
+          font-weight: bold;
+        }
+        .mark-text {
+          font-weight: bold;
+          color: red;
+        }
+
+        .today {
+          background-color: blue;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+        }
+        .calendar-container {
+          margin-top: 0px;
+        }
+
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgb(77, 174, 116);
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        #modalButtons {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          padding-top: 20px;
+        }
+
+        .modal-content {
+          background-color: #fefefe;
+          margin: 10% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 90%;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .modal-content h2 {
+          color: #333333;
+          margin-bottom: 15px;
+        }
+
+        .modal-content p {
+          color: #555555;
+          line-height: 1.6;
+        }
+
+        .modal-content .btn {
+          border-radius: 20px;
+          padding: 10px 15px;
+          margin-top: 15px;
+        }
+
+        .modal-content .close {
+          color: #aaaaaa;
+          text-shadow: none;
+          opacity: 0.5;
+        }
+
+        .modal-content .close:hover {
+          opacity: 1;
+        }
+
+        .close {
+          position: absolute;
+          right: 40px;
+          top: 10px;
+
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        #Start_End_time {
+          margin-top: 20px;
+        }
+
+        .modal-content .btn {
+          border: none;
+          padding: 10px 20px;
+          margin: 10px 5px 0;
+          border-radius: 5px;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        #editButton {
+          border: none;
+          width: 60px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: #4caf50;
+          color: white;
+        }
+
+        #editButton:hover {
+          background-color: #369f8c;
+        }
+
+        #deleteButton {
+          border: none;
+          width: 60px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: #f44336;
+          color: white;
+        }
+
+        #deleteButton:hover {
+          background-color: #da190b;
+        }
+        #updateButton {
+          border: none;
+          width: 200px;
+          height: 30px;
+          border-radius: 5px;
+          background-color: #4caf50;
+          color: white;
+        }
+        #updateButton:hover {
+          background-color: #369f8c;
+        }
+
+        /* Another one */
+
+        .edit-schedule-popup {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .popup-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #fff;
+          margin: 10% auto;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          width: 30%;
+          min-width: 300px;
+        }
+
+        .close-popup {
+          align-self: flex-end;
+          color: #333;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close-popup:hover,
+        .close-popup:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        label {
+          display: block;
+          margin: 10px 0 5px;
+          color: #333;
+          font-size: 14px;
+        }
+
+        input[type="datetime-local"],
+        input[type="text"],
+        input[type="search"],
+        select {
+          width: 100%;
+          padding: 8px;
+          margin: 5px 0 20px;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          background-color: #4caf50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #45a049;
+        }
+
+        @media screen and (max-width: 600px) {
+          .popup-content {
+            width: 80%;
+          }
+        }
+
+        #Addexpense {
+          width: 100%;
+          height: 100px;
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+          resize: vertical;
+        }
+
+        #calendar-containerid {
+
+          width: 100%;
+          overflow-x: auto;
+        }
+
+        .week-calendar-nav {
+          margin-top: 10px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        #week-calendarid {
+          margin: 0 auto;
+          width: 95%;
+        }
+        #week-calendar {
+          border-collapse: collapse;
+          border-spacing: 10px;
+          width: 95%;
+          margin: auto;
+          padding: 0 5%;
+          background-color: #4ad09b;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 15px;
+        }
+
+        #week-calendar th {
+          font-size: 8px;
+          background-color: #4ad09b;
+          color: white;
+          padding: 10px;
+          
+        }
+
+        #week-calendar td {
+          border: 1px solid #d3d3d3;
+          background-color: white;
+          padding: 3px;
+          text-align: left;
+          vertical-align: top;
+          width: 11%;
+          height: 15px;
+
+          overflow: auto;
+          word-break: break-word;
+          font-size: 10px;
+
+          box-sizing: border-box;
+        }
+
+        .text-cell {
+          width: 100%;
+          height: 20px;
+        }
+
+        .event-tip {
+          display: block;
+          cursor: pointer;
+          width: 200%;
+          height: 50px;
+          margin-bottom: 5px;
+          text-align: center;
+        }
+
+        .week-calendar-button {
+          margin-top: 3px;
+          background-color: white;
+          color: #4ad09b;
+          border: 2px solid #4ad09b;
+          border-radius: 15px;
+          padding: 10px 20px;
+          margin: 0 10px;
+        }
+
+        .week-calendar-button:hover {
+          background-color: #a8dbd9;
+          color: white;
+        }
+
+        /* daily calendar */
+
+        .daily-calendar {
+          border-collapse: separate;
+          border-spacing: 10px;
+          width: 90%;
+          margin: auto;
+          padding: 0 5%;
+          /* background-color: white; */
+          overflow-y: auto;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          /* border-radius: 15px; */
+          height: 100%;
+        }
+
+        .daily-calendar-body {
+          grid-template-columns: 15% repeat(50, 1fr) !important;
+        }
+      }
+
+      .daily-calendar-body {
+        display: grid;
+        grid-column-gap: 0.5rem;
+        height: 100vh;
+        border-top: solid #ddd;
+        overflow-y: auto;
+        grid-template-columns: 8rem repeat(20, 1fr);
+        grid-template-rows: repeat(48, 1fr);
+        grid-template-areas:
+          "time0s stage"
+          "time0e stage"
+          "time1s stage"
+          "time1e stage"
+          "time2s stage"
+          "time2e stage"
+          "time3s stage"
+          "time3e stage"
+          "time4s stage"
+          "time4e stage"
+          "time5s stage"
+          "time5e stage"
+          "time6s stage"
+          "time6e stage"
+          "time7s stage"
+          "time7e stage"
+          "time8s stage"
+          "time8e stage"
+          "time9s stage"
+          "time9e stage"
+          "time10s stage"
+          "time10e stage"
+          "time11s stage"
+          "time11e stage"
+          "time12s stage"
+          "time12e stage"
+          "time13s stage"
+          "time13e stage"
+          "time14s stage"
+          "time14e stage"
+          "time15s stage"
+          "time15e stage"
+          "time16s stage"
+          "time16e stage"
+          "time17s stage"
+          "time17e stage"
+          "time18s stage"
+          "time18e stage"
+          "time19s stage"
+          "time19e stage"
+          "time20s stage"
+          "time20e stage"
+          "time21s stage"
+          "time21e stage"
+          "time22s stage"
+          "time22e stage"
+          "time23s stage"
+          "time23e stage";
+      }
+
+      .DailyBodytime {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 100px;
+        background-color: white;
+
+        position: sticky;
+        left: 0;
+      }
+
+      .dailyevent {
+        padding-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: auto;
+        border-radius: 0.2rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        line-height: 1.4;
+        border-top: black;
+      }
+
+      .dailyevent p {
+        width: 100%;
+        font-size: 0.8em;
+        font-weight: normal;
+        text-align: center;
+      }
+
+      .dailyevent.color-0 {
+        background-color: #f7e3c5;
+      }
+      .dailyevent.color-1 {
+        background-color: #e5fec9;
+      }
+      .dailyevent.color-2 {
+        background-color: #f6d9d0;
+      }
+      .dailyevent.color-3 {
+        background-color: #d1f9fd;
+      }
+      .dailyevent.color-4 {
+        background-color: #fed9fa;
+      }
+      .dailyevent.color-5 {
+        background-color: #fbfbd4;
+      }
+
+      #DateBox {
+        display: flex;
+        background-color: #4ad09b;
+        height: 42px;
+        font-size: 20px;
+        text-size-adjust: 100%;
+        align-items: center;
+        font-weight: 400;
+        justify-content: center;
+      }
+
+      .DayEvent {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .DayEventList {
+        display: flex;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow-y: auto;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .closeEvent {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        border-style: none;
+        background-color: #fff;
+      }
+
+      .eventbullet {
+        font-size: 65%;
+        cursor: pointer;
+      }
+
+      #timeEnd {
+        border-bottom-style: solid;
+        border-color: #ddd;
+      }
+
+      .current-time-line {
+        position: relative;
+        top: 0;
+        width: 2200%;
+        height: 1.5px;
+        background-color: rgb(141, 139, 139);
+      }
+
+      .flex-table {
+        display: flex;
+        flex-direction: row;
+        border-collapse: collapse;
+        width: 100%;
+        overflow-y: auto;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        border: 1px solid #ddd;
+      }
+
+      .table-col {
+        display: flex;
+        border: 1px solid #ddd;
+        overflow-y: hidden;
+        flex-direction: column;
+        width: 120%;
+        border-collapse: separate;
+        border-spacing: 10px;
+        background-color: white;
+        height: 100%;
+      }
+
+      .weekly-calendar-body {
+        display: grid;
+        grid-gap: 0.2rem;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(48, 55px);
+        grid-template-areas:
+          "time0s"
+          "time0e"
+          "time1s"
+          "time1e"
+          "time2s"
+          "time2e"
+          "time3s"
+          "time3e"
+          "time4s"
+          "time4e"
+          "time5s"
+          "time5e"
+          "time6s"
+          "time6e"
+          "time7s"
+          "time7e"
+          "time8s"
+          "time8e"
+          "time9s"
+          "time9e"
+          "time10s"
+          "time10e"
+          "time11s"
+          "time11e"
+          "time12s"
+          "time12e"
+          "time13s"
+          "time13e"
+          "time14s"
+          "time14e"
+          "time15s"
+          "time15e"
+          "time16s"
+          "time16e"
+          "time17s"
+          "time17e"
+          "time18s"
+          "time18e"
+          "time19s"
+          "time19e"
+          "time20s"
+          "time20e"
+          "time21s"
+          "time21e"
+          "time22s"
+          "time22e"
+          "time23s"
+          "time23e";
+      }
+
+      .WeeklyTimetime{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 100%;
+      }
+
+      #WeeklyTime{
+        grid-template-columns: 100% !important;
+      }
+
+      .loader {
+          border: 10px solid #f3f3f3; /* Light grey */
+          border-top: 10px solid #3498db; /* Blue */
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          animation: spin 2s linear infinite;
+          margin-left: 50%;
+      }
+
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+    </style>
+
+    <div class="Filtercontainer">
+      <div class="row justify-content-center">
+        <!-- Carer Selection -->
+        <div class="col-md-auto form-group mb-3 d-flex align-items-center">
+          <label for="carer-dropdown" id="Carer_id">Carer </label>
+          <select id="carer-dropdown" class="form-control">
+            <!-- Options here -->
+          </select>
+        </div>
+        <!-- Customer Selection -->
+        <div class="col-md-auto form-group mb-3 d-flex align-items-center">
+          <label for="customer-dropdown" id="Customer_id">Customer</label>
+          <select id="customer-dropdown" class="form-control">
+            <!-- Options here -->
+          </select>
+        </div>
+
+        <div class="col-md-auto form-group mb-3 d-flex align-items-center">
+          <label for="calendar-dropdown" id="Calendar_id">Calendar</label>
+          <select id="calendar-dropdown" class="form-control">
+            <option value="dayGridMonth" selected>month</option>
+            <option value="timeGridWeek">week</option>
+            <option value="timeGridDay">day</option>
+            <!-- Options here -->
+          </select>
+        </div>
+      </div>
+    </div>
+        <!--  loading ICON -->
+    <div class="loader" id = "loader"></div>
+
+
+    <div class="calendar-container" id="calendar-containerid">
+    </div>
+
+    
+
+
+    <!-- Daily Calendar -->
+
+
+    <!-- Pop up window -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="Start_End_time"></p>
+        <p id="Event_title"></p>
+        <p id="modalCarer"></p>
+        <p id="modalCustomer"></p>
+        <p id="modalScheduleId"></p>
+        <div id="modalButtons">
+          <button id="editButton">Edit</button>
+          <button id="deleteButton">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update pop up window -->
+    <div id="editSchedulePopup" class="edit-schedule-popup">
+      <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <h2>Update record</h2>
+        <form id="editScheduleForm">
+          <label>Select Carer</label>
+          <select id="carer_update"></select>
+          <label>Select Customer</label>
+          <select id="customer_update"></select>
+          <label>Start Time:</label>
+          <input
+            type="datetime-local"
+            onchange="validateTime()"
+            id="startTime"
+          />
+          <label>End Time:</label>
+          <input
+            type="datetime-local"
+            onchange="validateTime2()"
+            id="endTime"
+          />
+          <label>Change Event Type for the Shift:</label>
+          <select id="eventType">
+            <option value="cleaning">Cleaning</option>
+            <option value="Gardening">Gardening</option>
+            <option value="nursingService">Nursing Service</option>
+            <option value="communityActivities">Community Activities</option>
+            <option value="digitalService">Digital Service Support</option>
+            <option value="travelAssistance">Travel Assistance</option>
+            <option value="careandsupport">In home care and support</option>
+            <option value="other">Other</option>
+          </select>
+          <button id="updateButton" type="button">Save Changes</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const airtableBaseId = "app8p4RecoWg7JsOX";
+      const airtableTableName = "Users";
+      const airtableApiKey =
+        "patbjbBB4mGfLvwMD.e257cd19ea5b9b3a5337417837f56d29c6f8b8dfeae4a7853b8da010f990e3df";
+      const emailToSearch = "jessie.wu@everyoungai.com";
+
+      const encodedFormulaByEmail = encodeURIComponent(
+        `{Email} = '${emailToSearch}'`
+      );
+      let carer_customer_id = {
+        carer: {},
+        customer: {},
+      };
+
+      let daySeed = 0;
+      let dayEventCount = createCounter(daySeed);
+
+      function populateDropdown(dropdownId, data, select) {
+        const dropdown = document.getElementById(dropdownId);
+        data.forEach((item) => {
+          const option = new Option(item, item);
+          dropdown.add(option);
+        });
+      }
+
+      let allRecords = [];
+      let offset;
+
+      async function fetchAllRecords(offsetParam) {
+        let url = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}?filterByFormula=${encodedFormulaByEmail}`;
+        if (offsetParam) {
+          url += `&offset=${offsetParam}`;
+        }
+
+        try {
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${airtableApiKey}`,
+            },
+          });
+          const data = await response.json();
+          allRecords = allRecords.concat(data.records);
+
+          if (data.offset) {
+            await fetchAllRecords(data.offset);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      const customerNames = [];
+      const carerNames = [];
+      let userObject = {
+        "Carer Active": ["All"],
+        Customer: ["All"],
+      };
+      let userRecordID = {
+        "Carer Active": [],
+        Customer: [],
+      };
+
+      async function fetchCustomerNames(customerRecordIds, role) {
+        await fetchAllRecords();
+        //console.log("All the record is" + JSON.stringify(allRecords) );
+        const recordId = allRecords[0]["fields"]["Client"];
+        const userType = ["Carers", "Customers"];
+        const userObjectType = ["Carer Active", "Customer"];
+
+        const fetchPromises = userType.map((type) => {
+          const encodedFormula = encodeURIComponent(
+            `{Record ID (from Client)} = '${recordId}'`
+          );
+          const url = `https://api.airtable.com/v0/${airtableBaseId}/${type}?filterByFormula=${encodedFormula}`;
+          return fetch(url, {
+            headers: { Authorization: `Bearer ${airtableApiKey}` },
+          }).then((response) => response.json());
+        });
+
+        try {
+          const results = await Promise.all(fetchPromises);
+          for (let i = 0; i < results.length; i++) {
+            for (const record of results[i].records) {
+              userObject[userObjectType[i]].push(record.fields.Name);
+              if (i == 0) {
+                carer_customer_id.carer[record.fields.Name] =
+                  record.fields.devRecordId;
+              }
+              if (i == 1) {
+                carer_customer_id.customer[record.fields.Name] =
+                  record.fields.recordid;
+              }
+            }
+          }
+          console.log("The result is" + JSON.stringify(carer_customer_id));
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      let UserList;
+      async function FindCustomer(LINKED_FIELD_NAME, LINKED_RECORD_ID) {
+        // Encode the formula for use in a URL query parameter
+        const encodedFormula = encodeURIComponent(
+          `{${LINKED_FIELD_NAME}} = '${LINKED_RECORD_ID}'`
+        );
+
+        const response = await fetch(
+          `https://api.airtable.com/v0/${airtableBaseId}/Schedule?filterByFormula=${encodedFormula}`,
+          {
+            headers: {
+              Authorization: `Bearer ${airtableApiKey}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+        const User_records = data.records;
+
+        // console.log("data is :" + JSON.stringify(data.records));
+        let CustomersAndCarers = User_records.map((record) => {
+          const fields = record.fields;
+
+          const Schedule_id = fields["Record ID"] || [];
+          const customers = fields.Customers || [];
+          const carers = fields.Carers || [];
+          const start = fields.Start || [];
+          const end = fields.End || [];
+          const event = fields.Services || [];
+
+          ////////////////////////////////////////////ADD MORE INFORMATION HERE/////////////////////////////
+
+          return {
+            recordId: record.id,
+            customers: customers,
+            carers: carers,
+            start: start,
+            end: end,
+            event: event,
+            schedule_id: Schedule_id,
+          };
+        });
+
+        UserList = CustomersAndCarers;
+        //console.log("THE TEST :" + JSON.stringify(CustomersAndCarers));
+        return CustomersAndCarers;
+      }
+
+      async function handleAllRecords() {
+        await fetchCustomerNames();
+
+        //console.log("The user's OBJECT is " +JSON.stringify(userObject) );
+
+        populateDropdown(
+          "customer-dropdown",
+          userObject["Customer"],
+          "customers"
+        );
+        populateDropdown(
+          "carer-dropdown",
+          userObject["Carer Active"],
+          "carers"
+        );
+      }
+
+      async function CollectAllRecord(recordname, colname) {
+        function mergeObjectsInArray(arrayOfArrays) {
+          return arrayOfArrays.reduce((accumulator, currentArray) => {
+            return [...accumulator, ...currentArray];
+          }, []);
+        }
+
+        let All_Carer = [];
+        for (var i = 1; i < userObject[recordname].length; i++) {
+          const result = await FindCustomer(colname, userObject[recordname][i]);
+
+          All_Carer.push(result);
+        }
+        //console.log("THIS IS ALL Customer NUMBER"  + All_Carer.length)
+        //console.log("The DAMN result is:" +JSON.stringify(All_Carer));
+
+        return mergeObjectsInArray(All_Carer);
+      }
+
+      async function setupEventListeners() {
+        await handleAllRecords();
+
+        // const search_button_Carer = document.getElementById("Search_button_Carer");
+        const search_button_Carer = document.getElementById("carer-dropdown");
+        // const search_button_Customer = document.getElementById("Search_button_Customer");
+        const search_button_Customer =
+          document.getElementById("customer-dropdown");
+        const selectCarer = document.getElementById("carer-dropdown");
+        const selectCustomer = document.getElementById("customer-dropdown");
+
+        function updateSpecialDates(newDates) {
+          specialDates = newDates;
+
+          update_whole_calendar();
+
+          document.getElementById('loader').style.display = "none";
+        }
+
+        search_button_Carer.addEventListener("change", async function () {
+          const carer_options = selectCarer.options;
+          const customer_options = selectCustomer.options;
+
+          const selected_carer = selectCarer.selectedOptions[0].value;
+          const selected_customer = selectCustomer.selectedOptions[0].value;
+          const Carer_Schedule = "";
+
+          //console.log("Carer:" + JSON.stringify(selected_carer));
+          //console.log("Customer:" + JSON.stringify(selected_customer));
+
+          if (selected_carer == "All") {
+            document.getElementById('loader').style.display = "block";
+            const all_carer = await CollectAllRecord("Carer Active", "Carers");
+            //console.log("All the CARER" +JSON.stringify(all_carer) );
+            specialDates = await GenerateResult(all_carer);
+            //console.log("ALL THE DATE" + specialDates);
+            updateSpecialDates(specialDates);
+          } else {
+            document.getElementById('loader').style.display = "block";
+            const result = await FindCustomer("Carers", selected_carer);
+            //console.log("Carer list is :" + JSON.stringify(result));
+
+            specialDates = await GenerateResult(result);
+
+            updateSpecialDates(specialDates);
+
+            //console.log("THE OUTPUT IS" + JSON.stringify(specialDates));
+          }
+        });
+
+        search_button_Customer.addEventListener("change", async function () {
+          const carer_options = selectCarer.options;
+          const customer_options = selectCustomer.options;
+
+          const selected_carer = selectCarer.selectedOptions[0].text;
+          const selected_customer = selectCustomer.selectedOptions[0].text;
+          //console.log("Carer:" + JSON.stringify(selected_carer));
+          //console.log("Customer:" + JSON.stringify(selected_customer));
+          if (selected_customer == "All") {
+            const All_Customer = [];
+            // for (var i = 1; i < userObject['Customer'].length;i++){
+            document.getElementById('loader').style.display = "block";
+            const all_customer = await CollectAllRecord(
+              "Customer",
+              "Customers"
+            );
+            //console.log("All the Customer" +JSON.stringify(all_customer) );
+            specialDates = await GenerateResult(all_customer);
+            //console.log("ALL THE DATE" + specialDates);
+            updateSpecialDates(specialDates);
+
+            // }
+          } else {
+            document.getElementById('loader').style.display = "block";
+
+            const result = await FindCustomer("Customers", selected_customer);
+            //console.log("Customer list is :" + JSON.stringify(result))
+
+            specialDates = await GenerateResult(result);
+
+            updateSpecialDates(specialDates);
+
+            //console.log("THE OUTPUT IS" + JSON.stringify(specialDates));
+          }
+        });
+        async function GenerateResult(input) {
+          let fetchPromises = input.map((item) => {
+            const encodedFormulaCustomer = encodeURIComponent(
+              `recordid = '${item.customers}'`
+            );
+            const encodedFormulaCarer = encodeURIComponent(
+              `devRecordId = '${item.carers}'`
+            );
+            const encodedFormulaService = encodeURIComponent(
+              `Record_id = '${item.event}'`
+            );
+
+            return Promise.all([
+              fetch(
+                `https://api.airtable.com/v0/${airtableBaseId}/Customers?filterByFormula=${encodedFormulaCustomer}`,
+                { headers: { Authorization: `Bearer ${airtableApiKey}` } }
+              ),
+              fetch(
+                `https://api.airtable.com/v0/${airtableBaseId}/Carers?filterByFormula=${encodedFormulaCarer}`,
+                { headers: { Authorization: `Bearer ${airtableApiKey}` } }
+              ),
+              fetch(
+                `https://api.airtable.com/v0/${airtableBaseId}/Services?filterByFormula=${encodedFormulaService}`,
+                { headers: { Authorization: `Bearer ${airtableApiKey}` } }
+              ),
+            ]).then(
+              async ([customerResponse, carerResponse, serviceResponse]) => {
+                const customerData = await customerResponse.json();
+                const carerData = await carerResponse.json();
+                const serviceData = await serviceResponse.json();
+
+                return {
+                  customer: customerData.records[0]?.fields.Customer,
+                  carer: carerData.records[0]?.fields.Name,
+                  service: serviceData.records[0]?.fields["Service name"],
+                  start: item.start,
+                  end: item.end,
+                  schedule_id: item.recordId,
+                };
+              }
+            );
+          });
+
+          try {
+            const results = await Promise.all(fetchPromises);
+
+            return results.map((item) => {
+              let start_date = new Date(item.start);
+              let end_date = new Date(item.end);
+              let sydneyStartTime = start_date.toLocaleString("en-AU", {
+                timeZone: "Australia/Sydney",
+              });
+              let sydneyEndTime = end_date.toLocaleString("en-AU", {
+                timeZone: "Australia/Sydney",
+              });
+
+              let [sydneyStartDate, sydneyStartHour] =
+                sydneyStartTime.split(", ");
+              let [sydneyEndDate, sydneyEndHour] = sydneyEndTime.split(", ");
+              let formattedSydneyStartTime = `${sydneyStartDate.trim()} ${sydneyStartHour.trim()}`;
+              let formattedSydneyEndTime = `${sydneyEndDate.trim()} ${sydneyEndHour.trim()}`;
+
+              return {
+                customer: item.customer,
+                carer: item.carer,
+                service: item.service,
+                normal_start_date: formattedSydneyStartTime,
+                normal_end_date: formattedSydneyEndTime,
+                schedule_id: item.schedule_id,
+                ios_start_date: start_date,
+                ios_end_date: end_date,
+              };
+            });
+          } catch (error) {
+            console.error("Error:", error);
+            return [];
+          }
+        }
+      }
+
+      async function fetchRecord(url, headers) {
+        const response = await fetch(url, { headers });
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            `Fetch error: ${response.status} ${response.statusText}`
+          );
+        }
+      }
+
+      async function OriginalDeploy() {
+        document.getElementById('loader').style.display = "block";
+
+        const all_carer = await CollectAllRecord("Customer", "Customers");
+
+        specialDates = await GenerateResult(all_carer);
+        console.log("Original Special dates IS " +JSON.stringify(specialDates) );
+
+        async function GenerateResult(input) {
+          let output = [];
+          let fetchPromises = [];
+
+          for (let i = 0; i < input.length; i++) {
+            const encodedFormulaCustomer = encodeURIComponent(
+              `recordid = '${input[i].customers}'`
+            );
+            const encodedFormulaCarer = encodeURIComponent(
+              `devRecordId = '${input[i].carers}'`
+            );
+            const encodedFormulaService = encodeURIComponent(
+              `Record_id = '${input[i].event}'`
+            );
+
+            fetchPromises.push(
+              Promise.all([
+                fetch(
+                  `https://api.airtable.com/v0/${airtableBaseId}/Customers?filterByFormula=${encodedFormulaCustomer}`,
+                  { headers: { Authorization: `Bearer ${airtableApiKey}` } }
+                ),
+                fetch(
+                  `https://api.airtable.com/v0/${airtableBaseId}/Carers?filterByFormula=${encodedFormulaCarer}`,
+                  { headers: { Authorization: `Bearer ${airtableApiKey}` } }
+                ),
+                fetch(
+                  `https://api.airtable.com/v0/${airtableBaseId}/Services?filterByFormula=${encodedFormulaService}`,
+                  { headers: { Authorization: `Bearer ${airtableApiKey}` } }
+                ),
+              ])
+                .then(
+                  async ([
+                    customerResponse,
+                    carerResponse,
+                    serviceResponse,
+                  ]) => {
+                    const customerData = await customerResponse.json();
+                    const carerData = await carerResponse.json();
+                    const serviceData = await serviceResponse.json();
+
+                    return {
+                      customer:
+                        customerData.records.length > 0
+                          ? customerData.records[0].fields.Customer
+                          : "",
+                      carer:
+                        carerData.records.length > 0
+                          ? carerData.records[0].fields.Name
+                          : "",
+                      service:
+                        serviceData.records.length > 0
+                          ? serviceData.records[0].fields["Service name"]
+                          : "",
+                      start: input[i].start,
+                      end: input[i].end,
+                      schedule_id: input[i].recordId,
+                      carer_id: input[i].carers,
+                      customer_id: input[i].customers,
+                    };
+                  }
+                )
+                .catch((error) => {
+                  console.error("Error:", error);
+                })
+            );
+          }
+
+          try {
+            const results = await Promise.all(fetchPromises);
+
+            for (const result of results) {
+              if (result) {
+                let start_date = new Date(result.start);
+                let end_date = new Date(result.end);
+                let sydneyStartTime = start_date.toLocaleString("en-AU", {
+                  timeZone: "Australia/Sydney",
+                });
+                let sydneyEndTime = end_date.toLocaleString("en-AU", {
+                  timeZone: "Australia/Sydney",
+                });
+
+                let [sydneyStartDate, sydneyStartHour] =
+                  sydneyStartTime.split(", ");
+                let [sydneyEndDate, sydneyEndHour] = sydneyEndTime.split(", ");
+                let formattedSydneyStartTime = `${sydneyStartDate.trim()} ${sydneyStartHour.trim()}`;
+                let formattedSydneyEndTime = `${sydneyEndDate.trim()} ${sydneyEndHour.trim()}`;
+
+                output.push({
+                  customer: result.customer,
+                  carer: result.carer,
+                  service: result.service,
+                  normal_start_date: formattedSydneyStartTime,
+                  normal_end_date: formattedSydneyEndTime,
+                  schedule_id: result.schedule_id,
+                  ios_start_date: start_date,
+                  ios_end_date: end_date,
+                  carer_id: result.carer_id,
+                  customer_id: result.customer_id,
+                });
+              }
+            }
+
+            return output;
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        }
+      }
+
+      function createCounter(seed) {
+        return function () {
+          const tmp = seed;
+          seed++;
+          return tmp;
+        };
+      }
+
+      function deploy_carer_customer() {
+        var carerUpdateSelect = document.getElementById("carer_update");
+        var customerUpdateSelect = document.getElementById("customer_update");
+        var carerOptions = userObject["Carer Active"];
+        var customerOptions = userObject["Customer"];
+
+        carerUpdateSelect.innerHTML = "";
+        customerUpdateSelect.innerHTML = "";
+
+        carerOptions.slice(1).forEach(function (item) {
+          let optionElement = document.createElement("option");
+          optionElement.value = item;
+          optionElement.textContent = item;
+          carerUpdateSelect.appendChild(optionElement);
+        });
+
+        customerOptions.slice(1).forEach(function (item) {
+          let optionElement = document.createElement("option");
+          optionElement.value = item;
+          optionElement.textContent = item;
+          customerUpdateSelect.appendChild(optionElement);
+        });
+      }
+
+
+      async function FinalDeploy() {
+        await setupEventListeners();
+        await OriginalDeploy();
+        update_whole_calendar();
+      }
+      document.addEventListener('DOMContentLoaded', async function() {
+          try {
+              await FinalDeploy();
+          } catch (error) {
+              console.error('Error during final deployment:', error);
+          }
+      });
+
+      /////////////////////////////////////////SEPARATE LINE FOR CANLENDER/////////////////////////////////////////////
+      let currentYear = new Date().getFullYear();
+      let currentMonth = new Date().getMonth();
+
+      /*Method*/
+      let specialDates = [];
+
+      let currentBaseDate = new Date();
+
+
+      function update_whole_calendar() {
+
+        var calendar = getCalendarInstance();
+
+
+          calendar.destroy();
+
+
+          createCalendar(specialDates);
+
+      }
+
+      function getCalendarInstance() {
+          var calendarEl = document.getElementById('calendar-containerid');
+          return new FullCalendar.Calendar(calendarEl);
+      }
+
+
+      function formatSpecialDates(specialDates) {
+
+            return specialDates.map(date => {
+                return {
+                    title: date.service, 
+                    start: date.ios_start_date,
+                    end: date.ios_end_date, 
+                    extendedProps: {
+                    normal_start_date: date.normal_start_date,
+                    normal_end_date: date.normal_end_date,
+                    carer: date.carer,
+                    customer: date.customer,
+                    service: date.service,
+                    schedule_id: date.schedule_id
+                   }
+                };
+            });
+        }
+      function createCalendar(specialDates){
+        var calendarEl = document.getElementById('calendar-containerid');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', 
+            events: formatSpecialDates(specialDates),
+            allDaySlot: false,
+            dayMaxEventRows: true,
+            eventClick: function(info) {
+   
+                showModal(info.event); 
+            }
+
+        });
+        var cal_select = document.getElementById("calendar-dropdown");
+        cal_select.addEventListener('change', function() {
+        calendar.changeView(cal_select.value);
+        });
+
+        calendar.render();
+        document.getElementById('loader').style.display = "none";
+      }
+
+      async function showModal(event) {
+        deploy_carer_customer();
+        function updateSpecialDates(newDates) {
+          specialDates = newDates;
+
+          update_whole_calendar();
+          document.getElementById('loader').style.display = "none";
+        }
+
+        let modal = document.getElementById("modal");
+        document.getElementById(
+          "Start_End_time"
+        ).textContent = `${event.extendedProps.normal_start_date} - ${event.extendedProps.normal_end_date}`;
+        
+
+
+        document.getElementById(
+          "Event_title"
+        ).textContent = `Event: ${event.extendedProps.service}`;
+        document.getElementById(
+          "modalCarer"
+        ).textContent = `Carer: ${event.extendedProps.carer}`;
+        document.getElementById(
+          "modalCustomer"
+        ).textContent = `Customer: ${event.extendedProps.customer}`;
+        // document.getElementById('modalScheduleId').textContent = `Schedule ID: ${event.schedule_id}`;
+
+        let editButton = document.getElementById("editButton");
+        let deleteButton = document.getElementById("deleteButton");
+        let updateButton = document.getElementById("updateButton");
+
+        var editSchedulePopup = document.getElementById("editSchedulePopup");
+
+        var closePopup = document.getElementsByClassName("close-popup")[0];
+
+        editButton.onclick = function () {
+          closeModal();
+          editSchedulePopup.style.display = "block";
+          //console.log('edit schedule id:', event.schedule_id);
+        };
+
+        updateButton.onclick = async function () {
+          let service_record = {
+            cleaning: "recJK03v5iM0g1yaK",
+            Gardening: "rechGWOft0o3jljpp",
+            nursingService: "recwoXYVxAQkikJB5",
+            communityActivities: "rec4fGWFKd6ATfzzI",
+            digitalService: "recNEpgqDQArZhZtR",
+            travelAssistance: "reco5fVaOImm9sdvw",
+            careandsupport: "recZMc5BenaLN7fE5",
+            other: "",
+          };
+
+          var carerSelect = document.getElementById("carer_update");
+          var selectedCarerText =
+            carerSelect.options[carerSelect.selectedIndex].text;
+          var customerSelect = document.getElementById("customer_update");
+          var selectedCustomerText =
+            customerSelect.options[customerSelect.selectedIndex].text;
+          var selectCarerId = carer_customer_id.carer[selectedCarerText];
+          var selectCustomerId =
+            carer_customer_id.customer[selectedCustomerText];
+
+          var startTime = document.getElementById("startTime").value;
+          var startTime2 = new Date(startTime);
+          var startTime3 = startTime2.toISOString();
+
+          var endTime = document.getElementById("endTime").value;
+          var endTime2 = new Date(endTime);
+          var endTime3 = endTime2.toISOString();
+
+          var eventType = document.getElementById("eventType").value;
+
+          var formattedStartTime = formatDateTime(startTime);
+          var formattedEndTime = formatDateTime(endTime);
+
+          var startDateTime = new Date(formattedStartTime);
+          var endDateTime = new Date(formattedEndTime);
+          var newService = [];
+          newService.push(service_record[eventType]);
+
+          var data = {
+            fields: {
+              Start: startDateTime.toISOString(),
+              End: endDateTime.toISOString(),
+              Services: newService,
+              Customers: [selectCustomerId],
+              Carers: [selectCarerId],
+            },
+          };
+          var data_to_update = {
+            Start: startTime3,
+            End: endTime3,
+            Services: eventType,
+            Customers: selectedCustomerText,
+            Carers: selectedCarerText,
+          };
+
+          //console.log(`The carer id is ${selectCarerId} and customer id is ${selectCustomerId}`)
+
+          await updateConfirm(
+            event.extendedProps,
+            data,
+            eventType,
+            formattedStartTime,
+            formattedEndTime,
+            data_to_update
+          );
+
+          //console.log("The UPDATING specialDates is" + JSON.stringify(specialDates) );
+
+          updateSpecialDates(specialDates);
+        };
+
+        function formatDateTime(dateTime) {
+          var date = new Date(dateTime);
+          return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        }
+
+        deleteButton.onclick = async function () {
+          await deleteConfirm(event.extendedProps);
+
+          updateSpecialDates(specialDates);
+
+          closeModal();
+        };
+
+        closePopup.onclick = window.onclick = function (event) {
+          if (
+            event.target === closePopup ||
+            event.target === editSchedulePopup
+          ) {
+            editSchedulePopup.style.display = "none";
+          }
+        };
+
+        modal.style.display = "block";
+      }
+
+      async function deleteConfirm(event) {
+        //console.log("THE not updated special date is " + JSON.stringify(specialDates));
+        let confirmation = confirm("Are you sure to delete this schedule?");
+        if (confirmation) {
+          deleteRecord("Schedule", event.schedule_id);
+          specialDates = specialDates.filter(
+            (item) => item.schedule_id !== event.schedule_id
+          );
+        }
+        //console.log("THE updated special date is " + JSON.stringify(specialDates));
+      }
+
+      async function updateConfirm(
+        event,
+        data,
+        service,
+        start_time,
+        end_time,
+        data_to_update
+      ) {
+        let confirmation = confirm("Are you sure to update this schedule?");
+        if (confirmation) {
+          await updateRecord("Schedule", event.schedule_id, data);
+
+          let scheduleToUpdate = specialDates.find(
+            (item) => item.schedule_id === event.schedule_id
+          );
+
+          let iosStartDateObject = new Date();
+          let iosEndDateObject = new Date();
+          if (scheduleToUpdate) {
+            try {
+              scheduleToUpdate.customer = data_to_update.Customers;
+              scheduleToUpdate.carer = data_to_update.Carers;
+              scheduleToUpdate.normal_start_date = start_time;
+              scheduleToUpdate.normal_end_date = end_time;
+
+
+              scheduleToUpdate.ios_start_date = new Date(data_to_update.Start);
+              scheduleToUpdate.ios_end_date = new Date(data_to_update.End);
+
+              scheduleToUpdate.service = service;
+            } catch (error) {
+              console.error("Error updating schedule:", error);
+            }
+          }
+        }
+      }
+
+    
+
+      function closeModal() {
+        let modal = document.getElementById("modal");
+        modal.style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        let modal = document.getElementById("modal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      function moveMonth(step) {
+        currentMonth += step;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        } else if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+        update_whole_calendar();
+      }
+
+      async function updateRecord(tableName, recordId, data) {
+        fetch(
+          `https://api.airtable.com/v0/${airtableBaseId}/${tableName}/${recordId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + airtableApiKey,
+            },
+            body: JSON.stringify(data),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            //console.log(data);
+            alert("Schedule updated successfully.");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } //test the code of update record, it will send the request to airtable and
+
+      function deleteRecord(tableName, recordId) {
+        const deleteUrl = `https://api.airtable.com/v0/${airtableBaseId}/${tableName}/${recordId}`;
+
+        fetch(deleteUrl, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${airtableApiKey}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            //console.log("The data delete"+data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      //////////////////////////////////////////// Daily Calender ////////////////////////////////////////////////
+
+     
+
+
+      function validateTime() {
+        let input = document.getElementById("startTime");
+
+        let value = input.value;
+
+        let date = new Date(value);
+
+        let StartDate = value.split("T")[0];
+
+        var EndDate = document.getElementById("endTime").value.split("T")[0];
+
+        if (StartDate !== EndDate && EndDate && value) {
+          alert("Schedule should be in the same date");
+          input.value = "";
+          return;
+        }
+
+      }
+
+      function validateTime2() {
+        let StartDate = document
+          .getElementById("startTime")
+          .value.split("T")[0];
+
+        let input = document.getElementById("endTime");
+
+        let value = input.value;
+
+        if (!StartDate) {
+          alert("Please select start time first");
+          input.value = "";
+          return;
+        }
+
+        let ETime = new Date(value);
+        let STime = new Date(document.getElementById("startTime").value);
+
+        let Ehour = ETime.getTime();
+        let Shour = STime.getTime();
+        console.log(Ehour, "  ", Shour);
+
+        let EndDate = value.split("T")[0];
+
+        if (StartDate !== EndDate && value) {
+          alert("Schedule should be in the same date");
+          input.value = "";
+          return;
+        }
+
+        if (Ehour < Shour) {
+          alert("End time must be later than start time！");
+          input.value = "";
+          return;
+        }
+
+      }
+
+    </script>
+  </body>
+</html>
